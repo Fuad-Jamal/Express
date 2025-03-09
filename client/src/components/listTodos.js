@@ -1,5 +1,5 @@
 import React,{Fragment,useEffect,useState} from 'react'
-import { EditTodo } from './editTodo';
+import EditTodo  from './editTodo';
 
 const ListTodos = () => {
     const [todos, setTodos] = useState([])
@@ -9,7 +9,8 @@ const ListTodos = () => {
             const deleteTodo = await fetch(`http://localhost:5000/todoo/${id}`, {
                 method: 'DELETE'
             })
-            setTodoos(todos.filter(todo => todo.todo_id !== id))
+            // console.log(deleteTodo)
+            setTodos(todos.filter(todo => todo.todo_id !== id))
         } catch (error) {
             console.error(error)
         }
@@ -51,7 +52,7 @@ const ListTodos = () => {
     {todos.map(todo => (
         <tr key={todo.todo_id}>
             <td>{todo.description}</td>
-            <td><EditTodo /></td>
+            <td><EditTodo todo={todo}/></td>
             <td><button className='btn btn-danger' onClick={()=> deleteTodo(todo.todo_id)}>Delete</button></td>
         </tr>
     ))}
